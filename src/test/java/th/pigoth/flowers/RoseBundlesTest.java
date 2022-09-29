@@ -3,13 +3,11 @@ package th.pigoth.flowers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static java.lang.String.format;
-import static java.math.BigDecimal.valueOf;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class RoseBundlesTest {
 
-    private RoseBundles roseBundles;
+    private FlowerBundles roseBundles;
 
     @BeforeEach
     void setUp() {
