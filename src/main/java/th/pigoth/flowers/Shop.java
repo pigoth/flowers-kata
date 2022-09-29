@@ -15,6 +15,10 @@ public class Shop {
 
     public BigDecimal totalAmount(Integer nRoses, Integer nLilies, Integer nTulips) {
         int largeRosesBundleCount = nRoses / L_ROSE_BUNDLE;
-        return rosesBundles.get(L_ROSE_BUNDLE).multiply(valueOf(largeRosesBundleCount));
+        int smallRosesBundleCount = (nRoses - largeRosesBundleCount * L_ROSE_BUNDLE) /S_ROSE_BUNDLE;
+        BigDecimal amountLBundles = rosesBundles.get(L_ROSE_BUNDLE).multiply(valueOf(largeRosesBundleCount));
+        BigDecimal amountSBundles = rosesBundles.get(S_ROSE_BUNDLE).multiply(valueOf(smallRosesBundleCount));
+
+        return amountLBundles.add(amountSBundles);
     }
 }

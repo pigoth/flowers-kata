@@ -32,4 +32,11 @@ class ShopTest {
 
         assertThat(totalAmount).isEqualTo(valueOf(12.99 * 2));
     }
+
+    @Test
+    void should_sell_different_type_of_bundles() {
+        BigDecimal totalAmount = shop.totalAmount(15, 0, 0);
+
+        assertThat(totalAmount).isEqualTo(valueOf(12.99 + 6.99));
+    }
 }
