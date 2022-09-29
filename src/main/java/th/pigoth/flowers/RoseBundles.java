@@ -6,7 +6,7 @@ import java.util.Map;
 import static java.lang.String.format;
 import static java.math.BigDecimal.valueOf;
 
-public class Shop {
+public class RoseBundles {
     public static final int L_ROSE_BUNDLE = 10;
     public static final int S_ROSE_BUNDLE = 5;
     private Map<Integer, BigDecimal> rosesBundles = Map.of(
@@ -14,7 +14,7 @@ public class Shop {
             L_ROSE_BUNDLE, valueOf(12.99)
     );
 
-    public String totalAmount(Integer nRoses, Integer nLilies, Integer nTulips) {
+    public String totalAmount(Integer nRoses) {
         int largeRosesBundleCount = nRoses / L_ROSE_BUNDLE;
         int smallRosesBundleCount = (nRoses - largeRosesBundleCount * L_ROSE_BUNDLE) / S_ROSE_BUNDLE;
         BigDecimal amountLBundles = rosesBundles.get(L_ROSE_BUNDLE).multiply(valueOf(largeRosesBundleCount));
