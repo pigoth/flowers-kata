@@ -3,6 +3,7 @@ package th.pigoth.flowers;
 import java.math.BigDecimal;
 import java.util.Map;
 
+import static java.lang.String.format;
 import static java.math.BigDecimal.valueOf;
 
 public class Shop {
@@ -13,12 +14,18 @@ public class Shop {
             L_ROSE_BUNDLE, valueOf(12.99)
     );
 
-    public BigDecimal totalAmount(Integer nRoses, Integer nLilies, Integer nTulips) {
+    public String totalAmount(Integer nRoses, Integer nLilies, Integer nTulips) {
         int largeRosesBundleCount = nRoses / L_ROSE_BUNDLE;
-        int smallRosesBundleCount = (nRoses - largeRosesBundleCount * L_ROSE_BUNDLE) /S_ROSE_BUNDLE;
+        int smallRosesBundleCount = (nRoses - largeRosesBundleCount * L_ROSE_BUNDLE) / S_ROSE_BUNDLE;
         BigDecimal amountLBundles = rosesBundles.get(L_ROSE_BUNDLE).multiply(valueOf(largeRosesBundleCount));
         BigDecimal amountSBundles = rosesBundles.get(S_ROSE_BUNDLE).multiply(valueOf(smallRosesBundleCount));
 
-        return amountLBundles.add(amountSBundles);
+        BigDecimal totalAmount = amountLBundles.add(amountSBundles);
+        return format(
+                "%d R12 $%.2f (%d x 10 $%.2f - %d x 5 $%.2f)",
+                nRoses, totalAmount,
+                largeRosesBundleCount, rosesBundles.get(L_ROSE_BUNDLE),
+                smallRosesBundleCount, rosesBundles.get(S_ROSE_BUNDLE)
+        );
     }
 }
