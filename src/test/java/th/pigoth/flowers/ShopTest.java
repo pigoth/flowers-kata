@@ -20,13 +20,6 @@ class ShopTest {
     }
 
     @Test
-    void should_sell_single_roses_bundle() {
-        BigDecimal totalAmount = shop.totalAmount(10, 0, 0);
-
-        assertThat(totalAmount).isEqualTo(valueOf(12.99));
-    }
-
-    @Test
     void should_sell_more_roses_bundle() {
         BigDecimal totalAmount = shop.totalAmount(20, 0, 0);
 
