@@ -1,25 +1,35 @@
 package th.pigoth.flowers;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
+import static java.math.BigDecimal.valueOf;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ShopTest {
 
+    private Shop shop;
+
+    @BeforeEach
+    void setUp() {
+        shop = new Shop();
+    }
+
     @Test
-    @Disabled
     void should_sell_single_roses_bundle() {
-        Shop shop = new Shop();
-        Integer nRoses = 10;
-        Integer nLilies = 0;
-        Integer nTulips = 0;
+        BigDecimal totalAmount = shop.totalAmount(10, 0, 0);
 
-        BigDecimal totalAmount = shop.totalAmount(nRoses, nLilies, nTulips);
+        assertThat(totalAmount).isEqualTo(valueOf(12.99));
+    }
 
-        assertThat(totalAmount).isEqualTo(BigDecimal.valueOf(12.99));
+    @Test
+    void should_sell_more_roses_bundle() {
+        BigDecimal totalAmount = shop.totalAmount(20, 0, 0);
+
+        assertThat(totalAmount).isEqualTo(valueOf(12.99 * 2));
     }
 }
