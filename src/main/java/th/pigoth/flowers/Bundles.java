@@ -1,19 +1,23 @@
 package th.pigoth.flowers;
 
-import java.math.BigDecimal;
-import java.util.Map;
+import java.util.List;
+
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.toUnmodifiableList;
 
 public class Bundles {
 
     private final String flowerCode;
-    private final Map<Integer, BigDecimal> values;
+    private final List<Bundle> values;
 
-    public Bundles(String flowerCode, Map<Integer, BigDecimal> values) {
+    public Bundles(String flowerCode, List<Bundle> values) {
         this.flowerCode = flowerCode;
-        this.values = values;
+        this.values = values.stream()
+                .sorted(comparing(Bundle::getSize).reversed())
+                .collect(toUnmodifiableList());
     }
 
-    public Map<Integer, BigDecimal> all() {
+    public List<Bundle> all() {
         return values;
     }
 

@@ -2,7 +2,6 @@ package th.pigoth.flowers;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Map;
 
 import static java.lang.String.format;
 import static java.math.BigDecimal.ZERO;
@@ -22,12 +21,10 @@ public class DefaultBundleComposer implements BundleComposer {
 
         ArrayList<BundleComposition> result = new ArrayList<>();
 
-        bundles.all().entrySet().stream().sorted((a, b) -> b.getKey().compareTo(a.getKey())).forEach(bundle -> {
+        bundles.all().forEach(bundle -> {
             var nFreeFlowers = nFlowers - result.stream().mapToInt(BundleComposition::totalFlowers).sum();
-            var size = bundle.getKey();
-            var amount = bundle.getValue();
-            var bundleQuantity = nFreeFlowers / size;
-            result.add(new BundleComposition(size, bundleQuantity, amount));
+            var bundleQuantity = nFreeFlowers / bundle.getSize();
+            result.add(new BundleComposition(bundle.getSize(), bundleQuantity, bundle.getAmount()));
         });
 
         return formatResult(nFlowers, result);
@@ -43,7 +40,7 @@ public class DefaultBundleComposer implements BundleComposer {
                 .map(BundleComposition::toString)
                 .collect(joining(" - ", "(", ")"));
 
-        return format("%d R12 $%.2f %s", nFlowers, totalAmount, details);
+        return format("%d %s $%.2f %s", nFlowers, bundles.flowerCode(),totalAmount, details);
     }
 
     private class BundleComposition {
