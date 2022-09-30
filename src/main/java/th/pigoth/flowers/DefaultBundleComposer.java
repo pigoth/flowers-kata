@@ -37,6 +37,7 @@ public class DefaultBundleComposer implements BundleComposer {
                 .reduce(ZERO, BigDecimal::add);
 
         String details = result.stream()
+                .filter(bundleComposition -> bundleComposition.bundleQuantity > 0)
                 .map(BundleComposition::toString)
                 .collect(joining(" - ", "(", ")"));
 
