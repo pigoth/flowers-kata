@@ -5,20 +5,20 @@ import java.util.List;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toUnmodifiableList;
 
-public class Bundles {
+public class FlowerBundles {
 
     private final String flowerCode;
-    private final List<Bundle> values;
+    private final List<Bundle> bundles;
 
-    public Bundles(String flowerCode, List<Bundle> values) {
+    public FlowerBundles(String flowerCode, List<Bundle> bundles) {
         this.flowerCode = flowerCode;
-        this.values = values.stream()
+        this.bundles = bundles.stream()
                 .sorted(comparing(Bundle::getSize).reversed())
                 .collect(toUnmodifiableList());
     }
 
     public List<Bundle> all() {
-        return values;
+        return bundles;
     }
 
     public String flowerCode() {

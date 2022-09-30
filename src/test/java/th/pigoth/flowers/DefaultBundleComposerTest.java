@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static java.math.BigDecimal.valueOf;
-import static java.util.Map.of;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DefaultBundleComposerTest {
@@ -15,11 +14,11 @@ class DefaultBundleComposerTest {
 
     @BeforeEach
     void setUp() {
-        Bundles bundles = new Bundles(
+        FlowerBundles flowerBundles = new FlowerBundles(
                 "R12",
                 List.of(new Bundle(5, valueOf(6.99)), new Bundle(10, valueOf(12.99)))
         );
-        roseBundles = new DefaultBundleComposer(bundles);
+        roseBundles = new DefaultBundleComposer(flowerBundles);
     }
 
     @Test

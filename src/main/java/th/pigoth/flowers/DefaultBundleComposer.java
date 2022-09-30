@@ -10,10 +10,10 @@ import static java.util.stream.Collectors.joining;
 
 public class DefaultBundleComposer implements BundleComposer {
 
-    private final Bundles bundles;
+    private final FlowerBundles flowerBundles;
 
-    public DefaultBundleComposer(Bundles bundles) {
-        this.bundles = bundles;
+    public DefaultBundleComposer(FlowerBundles flowerBundles) {
+        this.flowerBundles = flowerBundles;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class DefaultBundleComposer implements BundleComposer {
 
         ArrayList<BundleComposition> result = new ArrayList<>();
 
-        bundles.all().forEach(bundle -> {
+        flowerBundles.all().forEach(bundle -> {
             var nFreeFlowers = nFlowers - result.stream().mapToInt(BundleComposition::totalFlowers).sum();
             var bundleQuantity = nFreeFlowers / bundle.getSize();
             result.add(new BundleComposition(bundle.getSize(), bundleQuantity, bundle.getAmount()));
@@ -40,7 +40,7 @@ public class DefaultBundleComposer implements BundleComposer {
                 .map(BundleComposition::toString)
                 .collect(joining(" - ", "(", ")"));
 
-        return format("%d %s $%.2f %s", nFlowers, bundles.flowerCode(),totalAmount, details);
+        return format("%d %s $%.2f %s", nFlowers, flowerBundles.flowerCode(),totalAmount, details);
     }
 
     private class BundleComposition {
