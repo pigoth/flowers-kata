@@ -5,25 +5,27 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static java.lang.String.format;
-import static java.math.BigDecimal.*;
+import static java.math.BigDecimal.ZERO;
 import static java.math.BigDecimal.valueOf;
 import static java.util.stream.Collectors.joining;
 
-public class RoseBundles implements FlowerBundles {
-    public static final int L_ROSE_BUNDLE = 10;
-    public static final int S_ROSE_BUNDLE = 5;
-    private final Map<Integer, BigDecimal> rosesBundles = Map.of(
-            L_ROSE_BUNDLE, valueOf(12.99),
-            S_ROSE_BUNDLE, valueOf(6.99)
-    );
+public class DefaultBundleComposer implements BundleComposer {
+
+    private final Bundles bundles;
+
+    public DefaultBundleComposer(Bundles bundles) {
+        this.bundles = bundles;
+    }
 
     @Override
     public String totalAmount(Integer nFlowers) {
 
         ArrayList<BundleComposition> result = new ArrayList<>();
 
-        rosesBundles.forEach((size, amount) -> {
-            int nFreeFlowers = nFlowers - result.stream().mapToInt(BundleComposition::totalFlowers).sum();
+        bundles.all().entrySet().stream().sorted((a, b) -> b.getKey().compareTo(a.getKey())).forEach(bundle -> {
+            var nFreeFlowers = nFlowers - result.stream().mapToInt(BundleComposition::totalFlowers).sum();
+            var size = bundle.getKey();
+            var amount = bundle.getValue();
             var bundleQuantity = nFreeFlowers / size;
             result.add(new BundleComposition(size, bundleQuantity, amount));
         });
@@ -44,7 +46,7 @@ public class RoseBundles implements FlowerBundles {
         return format("%d R12 $%.2f %s", nFlowers, totalAmount, details);
     }
 
-    class BundleComposition {
+    private class BundleComposition {
 
         private final Integer bundleSize;
         private final Integer bundleQuantity;
@@ -70,3 +72,4 @@ public class RoseBundles implements FlowerBundles {
         }
     }
 }
+

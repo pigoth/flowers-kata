@@ -3,15 +3,21 @@ package th.pigoth.flowers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static java.math.BigDecimal.valueOf;
+import static java.util.Map.of;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RoseBundlesTest {
+class DefaultBundleComposerTest {
 
-    private FlowerBundles roseBundles;
+    private BundleComposer roseBundles;
 
     @BeforeEach
     void setUp() {
-        roseBundles = new RoseBundles();
+        Bundles bundles = new Bundles(
+                "R12",
+                of(10, valueOf(12.99), 5, valueOf(6.99))
+        );
+        roseBundles = new DefaultBundleComposer(bundles);
     }
 
     @Test

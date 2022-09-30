@@ -1,5 +1,5 @@
 package th.pigoth.flowers;
 
-public interface FlowerBundles {
+public interface BundleComposer {
     String totalAmount(Integer nFlowers);
 }
